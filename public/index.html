@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script
+  src="https://code.jquery.com/jquery-3.2.0.min.js"
+  integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+  crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body style="padding-bottom: 20px;">
+
+<div class="jumbotron" style="text-align: center;">
+	<h1>Node Creativity Project</h1>
+</div>
+
+  <div ng-app="myApp" ng-controller="formCtrl">
+    <div class="panel panel-default" style="width: 500px; margin: 0px auto;">
+  <div class="panel-heading">
+    <h3 class="panel-title">Mortgage Calculator</h3>
+  </div>
+  <div class="panel-body">
+    <form novalidate>
+      <div class="form-group">
+          <label for="initialdeposit">Initial Deposit</label>
+          <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="text" class="form-control" id="initialdeposit" placeholder="20000" ng-model="options.initialDeposit">
+              <div class="input-group-addon">.00</div>
+          </div>
+    </div>
+    <div class="form-group">
+          <label for="monthlyincome">Monthly Income</label>
+          <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="text" class="form-control" id="monthlyincome" placeholder="2000" ng-model="options.monthlyIncome">
+              <div class="input-group-addon">.00</div>
+          </div>
+    </div>
+    <div class="form-group">
+          <label for="interest">Interest</label>
+          <div class="input-group">      		
+              <input type="text" class="form-control" id="interest" placeholder="3" ng-model="options.interest">
+              <div class="input-group-addon">%</div>
+          </div>
+
+    </div>
+    <div class="form-group">
+          <label for="term">Term</label>
+          <div class="input-group">      		
+              <input type="text" class="form-control" id="term" placeholder="20" ng-model="options.term">
+              <div class="input-group-addon">Years</div>
+          </div>
+    </div>
+    <div class="form-group">
+          <label for="monthlyexpenses">Monthly Expenses</label>
+          <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="text" class="form-control" id="monthlyexpenses" placeholder="800" ng-model="options.monthlyExpenses">
+              <div class="input-group-addon">.00</div>
+          </div>
+    </div>
+    <div style="text-align: center">
+    	<button class="btn btn-primary" style="width: 200px;" ng-click="calc()">Calculate</button>
+    </div>
+    </form>
+    </div>
+  	</div>
+    
+    <br>
+    
+    <div class="panel panel-default" style="width: 500px; margin: 0px auto;">
+  		<div class="panel-heading">
+    		<h3 class="panel-title">Results</h3>
+  		</div>
+        <div class="panel-body">
+    	     <ul>
+		<li ng-repeat="(key, value) in results">
+	         	{{key}}: {{value}}
+	        </li>
+ 	      </ul>	
+             </div>
+	</div>
+    
+  </div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('formCtrl', function($scope,$http) {
+    $scope.master = {initialDeposit: "20000", monthlyIncome: "2000", interest: "3", term: "20", monthlyExpenses: "800"};
+    $scope.results = "";
+
+    $scope.reset = function() {
+        $scope.options = angular.copy($scope.master);
+    };
+
+    $scope.calc = function() {
+        $http.post('https://emeraldelements.com/creative4/api/mortgage', JSON.stringify($scope.options)).then(
+        function(resp){
+		console.log(resp.data);
+                $scope.results = resp.data;
+        },
+        function(err){
+                $(".results").html(err);
+        });
+
+        $scope.reset();
+    }
+
+    $scope.reset();
+});
+</script>
+
+</body>
+</html>
+

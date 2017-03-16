@@ -1,0 +1,26 @@
+{
+  "name": "creative_4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "multitenantapi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emeraldarcher/creative_4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emeraldarcher/creative_4/issues"
+  },
+  "homepage": "https://github.com/emeraldarcher/creative_4#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.1",
+    "express": "^4.15.2",
+    "morgan": "^1.8.1",
+    "mortgage-calculator": "^1.1.2"
+  }
+}
